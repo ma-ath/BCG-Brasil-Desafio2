@@ -2,16 +2,17 @@ import handler from "./libs/handler-lib";
 import dynamoDb from "./libs/dynamodb-lib";
 
 export const main = handler(async (event, context) => {
+  const data = JSON.parse(event.body);
   const params = {
-    TableName: process.env.tableName,
+    TableName: process.env.productsTableName,
     // 'KeyConditionExpression' defines the condition for the query
-    // - 'userId = :userId': only return items with matching 'userId'
+    // - 'productName = :productName': only return items with matching 'productName'
     //   partition key
-    KeyConditionExpression: "userId = :userId",
+    KeyConditionExpression: "productName = :productName",
     // 'ExpressionAttributeValues' defines the value in the condition
-    // - ':userId': defines 'userId' to be the id of the author
+    // - ':productName': defines 'productName' to be the name of the product
     ExpressionAttributeValues: {
-      ":userId": event.requestContext.identity.cognitoIdentityId,
+      ":productName": data.name,
     },
   };
 

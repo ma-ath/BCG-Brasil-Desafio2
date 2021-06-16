@@ -37,63 +37,63 @@ provider:
       Resource: "arn:aws:dynamodb:sa-east-1:*:*"
 
 functions:
-  # Defines an HTTP API endpoint that calls the main function in create.js
+  # Defines an HTTP API endpoint that calls the main function in registerProduct.js
   # - path: url path is /notes
   # - method: POST request
   # - authorizer: authenticate using the AWS IAM role
-  create:
-    handler: API/create.main
+  registerProduct:
+    handler: API/registerProduct.main
     events:
       - http:
-          path: notes
+          path: product
           method: post
           cors: true
           authorizer: aws_iam
 
-  get:
-    # Defines an HTTP API endpoint that calls the main function in get.js
-    # - path: url path is /notes/{id}
+  getProduct:
+    # Defines an HTTP API endpoint that calls the main function in getProduct.js
+    # - path: url path is /notes/{name}
     # - method: GET request
-    handler: API/get.main
+    handler: API/getProduct.main
     events:
       - http:
-          path: notes/{id}
+          path: products/{name}
           method: get
           cors: true
-          authorizer: aws_iam
+          # authorizer: aws_iam   // Função get product não precisa de autorização. Qualquer usuário consegue acessar seu banco de dados
 
-  list:
-    # Defines an HTTP API endpoint that calls the main function in list.js
-    # - path: url path is /notes
+  listProducts:
+    # Defines an HTTP API endpoint that calls the main function in listProducts.js
+    # - path: url path is /products
     # - method: GET request
-    handler: API/list.main
+    handler: API/listProducts.main
     events:
       - http:
-          path: notes
+          path: products
           method: get
           cors: true
-          authorizer: aws_iam
+          # authorizer: aws_iam
 
-  update:
-    # Defines an HTTP API endpoint that calls the main function in update.js
-    # - path: url path is /notes/{id}
+  updateProduct:
+    # Defines an HTTP API endpoint that calls the main function in updateProduct.js
+    # - path: url path is /products/{name}
     # - method: PUT request
-    handler: API/update.main
+    handler: API/updateProduct.main
     events:
       - http:
-          path: notes/{id}
+          path: products/{name}
           method: put
           cors: true
           authorizer: aws_iam
 
-  delete:
-    # Defines an HTTP API endpoint that calls the main function in delete.js
-    # - path: url path is /notes/{id}
+  deleteProduct:
+    # Defines an HTTP API endpoint that calls the main function in deleteProduct.js
+    # - path: url path is /product/{name}
     # - method: DELETE request
-    handler: API/delete.main
+    handler: API/deleteProduct.main
     events:
       - http:
-          path: notes/{id}
+          path: products/{name}
           method: delete
           cors: true
           authorizer: aws_iam

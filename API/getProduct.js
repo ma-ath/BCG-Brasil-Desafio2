@@ -7,7 +7,7 @@ export const main = handler(async (event, context) => {
     TableName: process.env.productsTableName,
     // 'Key' defines the partition key and sort key of the item to be retrieved
     Key: {
-      productName: data.productName, // The id of the author
+      productName: data.name, // The id of the author
       productId: data.id, // The id of the note from the path
     },
   };
