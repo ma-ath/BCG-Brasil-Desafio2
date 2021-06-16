@@ -1,5 +1,5 @@
-import handler from "./libs/handler-lib";
-import dynamoDb from "./libs/dynamodb-lib";
+import handler from "../../libs/handler-lib";
+import dynamoDb from "../../libs/dynamodb-lib";
 
 export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
@@ -7,8 +7,7 @@ export const main = handler(async (event, context) => {
     TableName: process.env.productsTableName,
     // 'Key' defines the partition key and sort key of the item to be retrieved
     Key: {
-      productName: data.name, // The id of the author
-      productId: data.id, // The id of the note from the path
+      productName: data.name // The id of the author
     },
   };
 

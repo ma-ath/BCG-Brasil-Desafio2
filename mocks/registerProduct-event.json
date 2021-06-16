@@ -1,8 +1,8 @@
 {
-    "body": "{\"content\":\"hello world\",\"attachment\":\"hello.jpg\"}",
+    "body": "{\"name\":\"Minion!\",\"id\":\"001\",\"price\":50,\"quantity\":300}",
     "requestContext": {
       "identity": {
         "cognitoIdentityId": "USER-SUB-1234"
       }
     }
-  }
+}

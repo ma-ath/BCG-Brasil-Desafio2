@@ -3,8 +3,8 @@
 //  Cada produto possui: productName, productId, productPrice & productQuantity
 //
 
-import handler from "./libs/handler-lib";
-import dynamoDb from "./libs/dynamodb-lib";
+import handler from "../../libs/handler-lib";
+import dynamoDb from "../../libs/dynamodb-lib";
 
 export const main = handler(async (event, context) => {
   // Partes the JSON data received from request

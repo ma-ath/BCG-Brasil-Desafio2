@@ -3,8 +3,8 @@
 //  Cada produto possui: productName, productId, productPrice & productQuantity
 //
 
-import handler from "./libs/handler-lib";
-import dynamoDb from "./libs/dynamodb-lib";
+import handler from "../../libs/handler-lib";
+import dynamoDb from "../../libs/dynamodb-lib";
 
 export const main = handler(async (event, context) => {
   const data = JSON.parse(event.body);
@@ -12,15 +12,15 @@ export const main = handler(async (event, context) => {
     TableName: process.env.productsTableName,
     // 'Key' defines the partition key and sort key of the item to be updated
     Key: {
-      productName: data.name, // The name of the product
-      productId: data.id, // The id of the product from the path
+      productName: data.name // The name of the product
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression: "SET productPrice = :price, productQuantity = :quantity",
+    UpdateExpression: "SET productPrice = :price, productQuantity = :quantity, productId = :id",
     ExpressionAttributeValues: {
       ":price": data.price || null,
       ":quantity": data.quantity || null,
+      ":id": data.id || null    // The id of the product from the path
     },
     // 'ReturnValues' specifies if and how to return the item's attributes,
     // where ALL_NEW returns all attributes of the item after the update; you
