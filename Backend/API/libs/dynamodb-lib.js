@@ -7,7 +7,7 @@ const client = new AWS.DynamoDB.DocumentClient();
 // Function that handles errors
 function err_handler(err, data) {
   if (err) {
-      console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
+      console.error("Unable to run lambda function. Error JSON:", JSON.stringify(err, null, 2));
   }else{
       // print success
       console.log("Success:", JSON.stringify(data));
