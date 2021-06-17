@@ -2,10 +2,13 @@ import React, {Component} from "react";
 import {Card, Button, ButtonGroup} from 'react-bootstrap';
 
 class MyCard extends Component{
+    //props = {
+    //    cardTitle: "Nome",
+    //    cardInfo: "Info",
+    //    cardPrice: 50
+    //}
+
     state = {
-        cardTitle: "Nome",
-        cardInfo: "Info",
-        cardPrice: 50,
         shopCartQuantity: 0
     }
 
@@ -39,9 +42,9 @@ class MyCard extends Component{
         return (
             <Card style={{ width: '18rem' }}>
             <Card.Body>
-                <Card.Title>{this.state.cardTitle}</Card.Title>
-                <Card.Text>{this.state.cardInfo}</Card.Text>
-                <Card.Text>{this.state.cardPrice}</Card.Text>
+                <Card.Title>{this.props.cardTitle}</Card.Title>
+                <Card.Text>{this.props.cardInfo}</Card.Text>
+                <Card.Text>{this.props.cardPrice}</Card.Text>
                 <ButtonGroup aria-label="Basic example">
                     <Button variant="secondary" onClick={this.removeFromCart}>-</Button>
                     <Button variant="primary" onClick={this.addToCart}>+</Button>
