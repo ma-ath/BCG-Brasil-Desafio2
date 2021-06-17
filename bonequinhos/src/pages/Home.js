@@ -1,13 +1,18 @@
-import React from "react";
-import "./Home.css";
+import React, {Component} from "react";
+import MyNavbar from "../components/navbar";
+import CardsHandler from "../components/renderCards";
 
-export default function Home() {
-  return (
-    <div className="Home">
-      <div className="lander">
-        <h1>Bonequinhos!</h1>
-        <p className="text-muted">O seu site de bonecos!</p>
+class Home extends Component{
+  state = {}
+
+  render(){
+    return (
+      <div>
+        <MyNavbar />
+        <CardsHandler />
       </div>
-    </div>
-  );
+    );
+  }
 }
+
+export default Home
