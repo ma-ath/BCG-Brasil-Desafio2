@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { Grid } from '@material-ui/core';
 import MyCard from "./card";
 
 class CardsHandler extends Component{
@@ -26,13 +27,13 @@ class CardsHandler extends Component{
     
     render(){
         return (
-        <div>
+        <Grid container justify="center" spacing={5}>
             {this.state.data.map(card => (
-            <div>
-                <MyCard cardTitle={card.productName} cardInfo="Muito legal" cardPrice={card.productPrice}/>
-            </div>
+                <Grid key={card.productName} item>
+                    <MyCard cardTitle={card.productName} cardInfo={card.productInfo} cardPrice={card.productPrice}/>
+                </Grid>
             ))}
-        </div>
+        </Grid>
         );
     }
 }

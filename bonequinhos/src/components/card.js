@@ -44,7 +44,7 @@ class MyCard extends Component{
             <Card.Body>
                 <Card.Title>{this.props.cardTitle}</Card.Title>
                 <Card.Text>{this.props.cardInfo}</Card.Text>
-                <Card.Text>{this.props.cardPrice}</Card.Text>
+                <Card.Text>Preço: R$ {this.props.cardPrice}</Card.Text>
                 <ButtonGroup aria-label="Basic example">
                     <Button variant="secondary" onClick={this.removeFromCart}>-</Button>
                     <Button variant="primary" onClick={this.addToCart}>+</Button>
