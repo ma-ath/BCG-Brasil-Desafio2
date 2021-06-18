@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Card, Button, ButtonGroup} from 'react-bootstrap';
+import {Card, Button, ButtonGroup, Badge} from 'react-bootstrap';
 
 class MyCard extends Component{
     //props = {
@@ -49,8 +49,10 @@ class MyCard extends Component{
                     <Button variant="secondary" onClick={this.removeFromCart}>-</Button>
                     <Button variant="primary" onClick={this.addToCart}>+</Button>
                     <Button variant="light" onClick={this.clearCart}>Limpar</Button>
+                    <h3><Badge variant="warning">Itens: {this.state.shopCartQuantity}</Badge></h3>
                 </ButtonGroup>
-                <Card.Text>Quantidade: {this.state.shopCartQuantity}</Card.Text>
+                
+                <Card.Text>Total: {this.state.shopCartQuantity * parseInt(this.props.cardPrice)}</Card.Text>
             </Card.Body>
             </Card>
         );
