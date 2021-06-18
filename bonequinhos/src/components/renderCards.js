@@ -18,7 +18,7 @@ class CardsHandler extends Component{
         .then(response => response.json())
         .then((jsonData) => {
             this.setState({ data: jsonData })
-            console.log(jsonData[0])
+            //console.log(jsonData[0])
         })
         .catch((error) => {
             console.error(error)

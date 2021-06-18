@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, Button, ButtonGroup, Badge} from 'react-bootstrap';
-
+import { saveCardToCookie } from "../cookiesHandler";
 class MyCard extends Component{
     //props = {
     //    cardTitle: "Nome",
@@ -23,7 +23,12 @@ class MyCard extends Component{
         this.setState({
             shopCartQuantity: this.state.shopCartQuantity + 1
         });
-        console.log("adicionado ao carrinho", this.state.shopCartQuantity)
+        // Saves cookies:
+        let cookies = [
+            this.props,
+            this.state
+        ]
+        saveCardToCookie(this.props.cardTitle, JSON.stringify(cookies))
     }
 
     removeFromCart() {
@@ -31,11 +36,21 @@ class MyCard extends Component{
         {
             this.setState({shopCartQuantity:this.state.shopCartQuantity-1})
         };
-        console.log("retirado do carrinho", this.state.shopCartQuantity)     
+        // Saves cookies:
+        let cookies = [
+            this.props,
+            this.state
+        ]
+        saveCardToCookie(this.props.cardTitle, JSON.stringify(cookies))
     }
 
     clearCart () {
         this.setState({shopCartQuantity:0})
+        let cookies = [
+            this.props,
+            this.state
+        ]
+        saveCardToCookie(this.props.cardTitle, JSON.stringify(cookies))
     }
 
     render(){
