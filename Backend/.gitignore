@@ -1,5 +1,8 @@
 # Added by me
 *.hidden
+secrets.json
+*.json
+/mocks
 
 # Logs
 logs

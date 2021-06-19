@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { saveCardToCookie , getCookie} from "../cookiesHandler";
+import Box from '@material-ui/core/Box';
 
 class MyBottomBar extends Component{
   constructor(props) {
@@ -110,27 +111,29 @@ class MyBottomBar extends Component{
 
   render(){
     return (
-      <div> 
-        <form onSubmit={this.handleSubmit}>
-          <label>Nome</label><br/>
-          <input type="text" value={this.state.name} onChange={this.handleNameChange} /><br/>
-          <label>Sobrenome</label><br/>
-          <input type="text" value={this.state.surname} onChange={this.handleSurnameChange} /><br/>
-          <label>Endereço 1</label><br/>
-          <input type="text" value={this.state.adr1} onChange={this.handleAdr1Change} /><br/>
-          <label>Endereço 2</label><br/>
-          <input type="text" value={this.state.adr2} onChange={this.handleAdr2Change} /><br/>
-          <label>Cidade</label><br/>
-          <input type="text" value={this.state.city} onChange={this.handleCityChange} /><br/>
-          <label>Estado</label><br/>
-          <input type="text" value={this.state.state} onChange={this.handleStateChange} /><br/>
-          <label>CEP</label><br/>
-          <input type="text" value={this.state.zip} onChange={this.handleZipChange} /><br/>
-          <label>Email</label><br/>
-          <input type="text" value={this.state.email} onChange={this.handleEmailChange} /><br/>
-          
-          <input type="submit" value="Submit" />
-        </form>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+        <Box color="white" bgcolor="navy" p={1}>
+          <form onSubmit={this.handleSubmit}>
+            <label>Nome</label><br/>
+            <input type="text" value={this.state.name} onChange={this.handleNameChange} /><br/>
+            <label>Sobrenome</label><br/>
+            <input type="text" value={this.state.surname} onChange={this.handleSurnameChange} /><br/>
+            <label>Endereço 1</label><br/>
+            <input type="text" value={this.state.adr1} onChange={this.handleAdr1Change} /><br/>
+            <label>Endereço 2</label><br/>
+            <input type="text" value={this.state.adr2} onChange={this.handleAdr2Change} /><br/>
+            <label>Cidade</label><br/>
+            <input type="text" value={this.state.city} onChange={this.handleCityChange} /><br/>
+            <label>Estado</label><br/>
+            <input type="text" value={this.state.state} onChange={this.handleStateChange} /><br/>
+            <label>CEP</label><br/>
+            <input type="text" value={this.state.zip} onChange={this.handleZipChange} /><br/>
+            <label>Email</label><br/>
+            <input type="text" value={this.state.email} onChange={this.handleEmailChange} /><br/>
+            
+            <input type="submit" value="Submit" />
+          </form>
+        </Box>
       </div>
     );
   }
