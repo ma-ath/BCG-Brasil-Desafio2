@@ -3,41 +3,21 @@
 import handler from "./handler-lib";
 
 export const main = handler(async (event, context) => {
+    var aws = require("aws-sdk");
+    var ses = new aws.SES({ region: "sa-east-1" });
     const secrets = require('./secrets.json');
-    var nodemailer = require('nodemailer');
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: secrets.secrets.email,
-            pass: secrets.secrets.password
-        }
-    });
-    // Primeiro email
-    var mailOptions = {
-        from: secrets.secrets.email,
-        to: event.ToAddresses,
-        subject: event.MessageSubject,
-        text: event.MessageBody
+    var params = {
+        Destination: {
+        ToAddresses: [event.ToAddresses, secrets.bgc.email],
+     },
+     Message: {
+        Body: {
+            Text: { Data: event.MessageBody },
+            },
+            Subject: { Data: event.MessageSubject },
+        },
+        Source: secrets.secrets.email,
     };
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-    //Segundo email
-    mailOptions = {
-        from: secrets.bgc.email,
-        to: event.ToAddresses,
-        subject: event.MessageSubject,
-        text: event.MessageBody
-    };
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
+    var sendPromise = ses.sendEmail(params).promise();
+    console.log(sendPromise);
 });

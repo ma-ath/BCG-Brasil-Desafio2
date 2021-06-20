@@ -74,9 +74,28 @@ class MyBottomBar extends Component{
       this.state
     ]
     saveCardToCookie("forms", JSON.stringify(cookies))
-    this.generateEmail()
-  }
 
+
+    // SEND EMAIL
+    let emailbody = this.generateEmail()
+
+    var url = "https://aw111a5inl.execute-api.sa-east-1.amazonaws.com/prod/sendEmail";
+
+    var req = new XMLHttpRequest();
+    req.open("POST", url, true);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.addEventListener("load", function () {
+        console.log(req.status);
+        
+        if (req.status < 400) {
+          console.log('sucess');
+        } else {
+          console.log("Request failed: "+ req.status+" _" + req.statusText);
+        }
+      });
+      req.send(JSON.stringify(emailbody));
+    }
+   
   generateEmail(){
     let data = JSON.parse(getCookie("data"));
 

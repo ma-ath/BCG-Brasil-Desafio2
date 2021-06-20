@@ -54,12 +54,12 @@ functions:
   sendEmail:
     # Defines an HTTP API endpoint that calls the main function in listProducts.js
     # - path: url path is /products
-    # - method: GET request
+    # - method: POST request
     handler: API/libs/sendEmail.main
     events:
       - http:
           path: sendEmail
-          method: get
+          method: post
           cors: true
   getProduct:
     # Defines an HTTP API endpoint that calls the main function in getProduct.js
