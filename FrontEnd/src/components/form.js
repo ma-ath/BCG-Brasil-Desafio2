@@ -103,8 +103,8 @@ class MyForm extends Component{
           }
         });
         req.send(JSON.stringify(params));
+        this.registrarPedido();
       }
-      this.registrarPedido();
     }
   
   registrarPedido(){
