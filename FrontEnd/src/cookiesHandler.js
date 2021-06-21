@@ -1,7 +1,7 @@
 // Arquivo de 'cookies', usado para salvar dados dos cartoes e fazer a comunicacao entre os componentes
 
 export function saveCookie(cardID, cardData){
-    document.cookie = cardID+"="+encodeURIComponent(cardData)+";SameSite=None; Secure";
+    document.cookie = cardID+"="+encodeURIComponent(cardData)+";SameSite=None";
 }
 
 export function getCookie(name) {

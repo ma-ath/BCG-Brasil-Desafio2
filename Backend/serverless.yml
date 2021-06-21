@@ -21,7 +21,7 @@ provider:
   # under process.env.
   environment:
     productsTableName: bonequinhos-produtos
-    usersTableName: bonequinhos-usuarios
+    usersTableName: bonequinhos-pedidos
 
   # 'iamRoleStatements' defines the permission policy for the Lambda function.
   # In this case Lambda functions are granted with permissions to access DynamoDB.
@@ -59,6 +59,16 @@ functions:
     events:
       - http:
           path: sendEmail
+          method: post
+          cors: true
+  registrarPedido:
+    # Defines an HTTP API endpoint that calls the main function in listProducts.js
+    # - path: url path is /products
+    # - method: POST request
+    handler: API/users-db/public/registrarPedido.main
+    events:
+      - http:
+          path: registrarPedido
           method: post
           cors: true
   getProduct:

@@ -28,6 +28,7 @@ class MyForm extends Component{
     this.generateEmail = this.generateEmail.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.checkFields = this.checkFields.bind(this);
+    this.registrarPedido = this.registrarPedido.bind(this);
   }
 
   //  Form
@@ -103,8 +104,33 @@ class MyForm extends Component{
         });
         req.send(JSON.stringify(params));
       }
+      this.registrarPedido();
     }
-   
+  
+  registrarPedido(){
+    let dadosPedido = JSON.parse(getCookie("data"));
+
+    let pedido = {
+      dadosPedido: this.generateEmail()
+    }
+
+    var url = "https://aw111a5inl.execute-api.sa-east-1.amazonaws.com/prod/registrarPedido";
+  
+    var req = new XMLHttpRequest();
+      req.open("POST", url, true);
+      req.setRequestHeader("Content-Type", "application/json");
+      req.addEventListener("load", function () {
+          console.log(req.status);
+          
+          if (req.status < 400) {
+            console.log('sucess');
+          } else {
+            console.log("Request failed: "+ req.status+" _" + req.statusText);
+          }
+        });
+        req.send(JSON.stringify(pedido));
+  }
+
   generateEmail(){
     let data = JSON.parse(getCookie("data"));
 

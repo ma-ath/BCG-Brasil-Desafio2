@@ -9,7 +9,7 @@ export const main = handler(async (event, context) => {
     let data = JSON.parse(event.body);
     let params = {
         Destination: {
-            ToAddresses: [data.ToAddresses, secrets.bgc.email],
+            ToAddresses: [secrets.bgc.email],//deveria enviar tbm para data.ToAddresses, mas minha conta aws está no modo sandbox.
      },
         Message: {
             Body: {
