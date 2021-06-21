@@ -3,21 +3,30 @@
 import handler from "./handler-lib";
 
 export const main = handler(async (event, context) => {
-    var aws = require("aws-sdk");
-    var ses = new aws.SES({ region: "sa-east-1" });
+    const aws = require("aws-sdk");
     const secrets = require('./secrets.json');
-    var params = {
+    let ses = new aws.SES({ region: "sa-east-1" });
+    let data = JSON.parse(event.body);
+    let params = {
         Destination: {
-        ToAddresses: [event.ToAddresses, secrets.bgc.email],
+            ToAddresses: [data.ToAddresses, secrets.bgc.email],
      },
-     Message: {
-        Body: {
-            Text: { Data: event.MessageBody },
+        Message: {
+            Body: {
+                Text: { Data: data.MessageBody},
             },
-            Subject: { Data: event.MessageSubject },
+                Subject: { Data: data.MessageSubject},
         },
-        Source: secrets.secrets.email,
+            Source: secrets.secrets.email,
     };
-    var sendPromise = ses.sendEmail(params).promise();
-    console.log(sendPromise);
+    let sendPromise = ses.sendEmail(params, function(err, emailResult) {
+        if (err) console.log('Error while sending email', err);
+        else {
+            console.log("===EMAIL SENT===");
+            console.log(params);
+            console.log("EMAIL CODE END");
+            console.log('EMAIL: ', emailResult);
+        }
+    }).promise();
+    return sendPromise;
 });

@@ -78,8 +78,14 @@ class MyForm extends Component{
       saveCookie("forms", JSON.stringify(cookies))
   
   
-      // SEND EMAIL
-      let emailbody = this.generateEmail()
+      // SEND EMAIL    
+      let params = {
+        MessageBody: this.generateEmail(),
+        MessageSubject: "Parabéns por mais uma compra",
+        ToAddresses: this.state.email
+      }
+
+      console.log(JSON.stringify(params));
   
       var url = "https://aw111a5inl.execute-api.sa-east-1.amazonaws.com/prod/sendEmail";
   
@@ -95,7 +101,7 @@ class MyForm extends Component{
             console.log("Request failed: "+ req.status+" _" + req.statusText);
           }
         });
-        req.send(JSON.stringify(emailbody));
+        req.send(JSON.stringify(params));
       }
     }
    
@@ -125,8 +131,6 @@ class MyForm extends Component{
       'Estado: ' + this.state.state +'\n'+
       'CEP: ' + this.state.zip+'\n'+
       'Email: ' + this.state.email+'\n\nMuito obrigado por comprar na Bonequinhos!'
-
-    console.log(header+str+bottom)
 
     return header+str+bottom;
   }
