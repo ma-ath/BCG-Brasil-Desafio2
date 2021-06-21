@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import MyNavbar from "../components/navbar";
 import CardsHandler from "../components/renderCards";
-import MyBottomBar from "../components/bottomBar";
+import MyForm from "../components/form";
 
 class Home extends Component{
   render(){
@@ -15,7 +15,7 @@ class Home extends Component{
         <br/>
         <br/>
         <br/>
-        <MyBottomBar />
+        <MyForm />
       </div>
     );
   }

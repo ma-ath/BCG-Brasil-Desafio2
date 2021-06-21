@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import { saveCardToCookie , getCookie} from "../cookiesHandler";
-import Box from '@material-ui/core/Box';
+import { saveCookie , getCookie} from "../cookiesHandler";
+import {Alert} from 'react-bootstrap'
 
-class MyBottomBar extends Component{
+class MyForm extends Component{
   constructor(props) {
     super(props);
     
@@ -27,6 +27,7 @@ class MyBottomBar extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
     this.generateEmail = this.generateEmail.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.checkFields = this.checkFields.bind(this);
   }
 
   //  Form
@@ -56,44 +57,46 @@ class MyBottomBar extends Component{
   }
 
   handleSubmit(event) {
-    alert(
-      'Compra efetuada. Como você é lindo, não será necessário entrar com forma de pagamento, e todos os produtos sairão de graça.\n\n'+
-      'Nome: ' + this.state.name +'\n'+
-      'Sobrenome: ' + this.state.surname +'\n'+
-      'Endereço 1: ' + this.state.adr1 +'\n'+
-      'Endereço 2: ' + this.state.adr2 +'\n'+
-      'Cidade: ' + this.state.city +'\n'+
-      'Estado: ' + this.state.state +'\n'+
-      'CEP: ' + this.state.zip+'\n'+
-      'Email: ' + this.state.email+
-      '\n\nParabéns pela ótima compra! Prazo de entrega: 14 dias úteis');
-
-    event.preventDefault();
-    // Saves cookies:
-    let cookies = [
-      this.state
-    ]
-    saveCardToCookie("forms", JSON.stringify(cookies))
-
-
-    // SEND EMAIL
-    let emailbody = this.generateEmail()
-
-    var url = "https://aw111a5inl.execute-api.sa-east-1.amazonaws.com/prod/sendEmail";
-
-    var req = new XMLHttpRequest();
-    req.open("POST", url, true);
-    req.setRequestHeader("Content-Type", "application/json");
-    req.addEventListener("load", function () {
-        console.log(req.status);
-        
-        if (req.status < 400) {
-          console.log('sucess');
-        } else {
-          console.log("Request failed: "+ req.status+" _" + req.statusText);
-        }
-      });
-      req.send(JSON.stringify(emailbody));
+    if (this.checkFields()){
+      alert(
+        'Compra efetuada. Como você é lindo, não será necessário entrar com forma de pagamento, e todos os produtos sairão de graça.\n\n'+
+        'Nome: ' + this.state.name +'\n'+
+        'Sobrenome: ' + this.state.surname +'\n'+
+        'Endereço 1: ' + this.state.adr1 +'\n'+
+        'Endereço 2: ' + this.state.adr2 +'\n'+
+        'Cidade: ' + this.state.city +'\n'+
+        'Estado: ' + this.state.state +'\n'+
+        'CEP: ' + this.state.zip+'\n'+
+        'Email: ' + this.state.email+
+        '\n\nParabéns pela ótima compra! Prazo de entrega: 14 dias úteis');
+  
+      event.preventDefault();
+      // Saves cookies:
+      let cookies = [
+        this.state
+      ]
+      saveCookie("forms", JSON.stringify(cookies))
+  
+  
+      // SEND EMAIL
+      let emailbody = this.generateEmail()
+  
+      var url = "https://aw111a5inl.execute-api.sa-east-1.amazonaws.com/prod/sendEmail";
+  
+      var req = new XMLHttpRequest();
+      req.open("POST", url, true);
+      req.setRequestHeader("Content-Type", "application/json");
+      req.addEventListener("load", function () {
+          console.log(req.status);
+          
+          if (req.status < 400) {
+            console.log('sucess');
+          } else {
+            console.log("Request failed: "+ req.status+" _" + req.statusText);
+          }
+        });
+        req.send(JSON.stringify(emailbody));
+      }
     }
    
   generateEmail(){
@@ -128,10 +131,42 @@ class MyBottomBar extends Component{
     return header+str+bottom;
   }
 
+  checkFields(){
+    if (this.state.name === ''){
+      alert('Nome invalido!', this.state.name);
+      return false;
+    }
+    if (this.state.surname === ''){
+      alert('Sobrenome invalido!', this.state.surname);
+      return false;
+    }
+    if (this.state.adr1 === ''){
+      alert('Endereço 1 invalido!', this.state.surname);
+      return false;
+    }
+    if (this.state.city === ''){
+      alert('Cidade invalida!', this.state.surname);
+      return false;
+    }
+    if (this.state.state === ''){
+      alert('Estado invalido!', this.state.surname);
+      return false;
+    }
+    if (this.state.zip === ''){
+      alert('CEP invalido!', this.state.zip);
+      return false;
+    }
+    if (this.state.email === ''){
+      alert('Email invalido!', this.state.email);
+      return false;
+    }
+    return true;
+  }
+
   render(){
     return (
       <div style={{display: 'flex', justifyContent: 'center'}}>
-        <Box color="white" bgcolor="navy" p={1}>
+        <Alert variant='primary'>
           <form onSubmit={this.handleSubmit}>
             <label>Nome</label><br/>
             <input type="text" value={this.state.name} onChange={this.handleNameChange} /><br/>
@@ -152,10 +187,10 @@ class MyBottomBar extends Component{
             
             <input type="submit" value="Submit" />
           </form>
-        </Box>
+        </Alert>
       </div>
     );
   }
 }
 
-export default MyBottomBar
+export default MyForm

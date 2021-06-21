@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { Grid } from '@material-ui/core';
 import MyCard from "./card";
-import { saveCardToCookie } from "../cookiesHandler";
+import { saveCookie } from "../cookiesHandler";
 
 class CardsHandler extends Component{
     constructor(){
@@ -20,7 +20,7 @@ class CardsHandler extends Component{
         .then(response => response.json())
         .then((jsonData) => {
             this.setState({ data: jsonData })
-            saveCardToCookie("data", JSON.stringify(jsonData))
+            saveCookie("data", JSON.stringify(jsonData))
         })
         .catch((error) => {
             console.error(error)
